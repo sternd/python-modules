@@ -6,6 +6,7 @@ class NitradoRequests:
     NITRAPI_BASE_URL = "https://api.nitrado.net"
     NITRAPI_GAMESERVER_BOOST_HISTORY = "/services/:id/gameservers/boost/history"
     NITRAPI_GAMESERVER_DETAILS = "/services/:id/gameservers"
+    NITRAPI_SERVICES = "/services"
 
     # Send a Discord API request
     def sendNitrapiRequest(self, action, token, url, params=None):
@@ -48,5 +49,10 @@ class NitradoRequests:
     # See for more info: https://doc.nitrado.net/#api-Gameserver-Details
     def getGameserverDetails(self, token, gameserver_id):
         url = self.NITRAPI_BASE_URL + self.NITRAPI_GAMESERVER_DETAILS.replace(':id', gameserver_id, 1)
+
+        return self.sendNitrapiRequest("GET", token, url)
+
+    def getServices(self, token):
+        url = self.NITRAPI_BASE_URL + self.NITRAPI_SERVICES
 
         return self.sendNitrapiRequest("GET", token, url)
