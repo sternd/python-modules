@@ -14,12 +14,12 @@ class DiscordRequests:
     BOT_CLIENT_ID = None
 
     def __init__(self, config):
-        if 'auth_token' not in config or config['token'] is None:
+        if 'auth_token' not in config or config['auth_token'] is None:
             raise Exception('Missing Discord Token')
         elif 'bot_client_id' not in config or config['bot_client_id'] is None:
             raise Exception('Missing Bot Client ID')
 
-        self.TOKEN = config['token']
+        self.TOKEN = config['auth_token']
         self.BOT_CLIENT_ID = config['bot_client_id']
 
     # Send a Discord API request
@@ -30,11 +30,11 @@ class DiscordRequests:
 
         try:
             if action == 'GET':
-                response = requests.get(url, timeout=5, headers={"Authorization": auth_token})
+                response = requests.get(url, timeout=15, headers={"Authorization": auth_token})
             elif action == 'POST':
-                response = requests.post(url, timeout=5, headers={"Authorization": auth_token}, json=params)
+                response = requests.post(url, timeout=10, headers={"Authorization": auth_token}, json=params)
             elif action == 'PATCH':
-                response = requests.patch(url, timeout=5, headers={"Authorization": auth_token}, json=params)
+                response = requests.patch(url, timeout=10, headers={"Authorization": auth_token}, json=params)
             else:
                 raise Exception(f'Attempting to send request with unknown action: {action}')
 
